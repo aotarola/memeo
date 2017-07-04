@@ -1,0 +1,18 @@
+{
+  "name": "memeo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:aotarola/memeo.git",
+  "author": "Andrés Otárola <andres@otarola.me>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "hapi": "^16.4.3",
+    "inert": "^4.2.0"
+  },
+  "engines": {
+    "node": ">=8.1.3"
+  }
+}
