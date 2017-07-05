@@ -16,8 +16,8 @@ const server = new Hapi.Server({
 })
 
 server.connection({
-  host: 'localhost',
-  port: 8080
+  host: '0.0.0.0',
+  port: process.env.PORT || 8081
 })
 
 server.register(Inert, () => {})
