@@ -3,6 +3,7 @@
 const Hapi = require('hapi')
 const Path = require('path')
 const Inert = require('inert')
+const Good = require('good')
 
 const server = new Hapi.Server({
   connections: {
@@ -21,11 +22,33 @@ server.connection({
 
 server.register(Inert, () => {})
 
-server.start(err => {
-  if (err) {
-    throw err
+server.register({
+  register: Good,
+  options: {
+    reporters: {
+      console: [{
+        module: 'good-squeeze',
+        name: 'Squeeze',
+        args: [{
+          response: '*',
+          log: '*'
+        }]
+      }, {
+        module: 'good-console'
+      }, 'stdout']
+    }
   }
-  console.log('Server running at:', server.info.uri)
+}, (err) => {
+  if (err) {
+    throw err // something bad happened loading the plugin
+  }
+
+  server.start((err) => {
+    if (err) {
+      throw err
+    }
+    server.log('info', 'Server running at: ' + server.info.uri)
+  })
 })
 
 server.route({
